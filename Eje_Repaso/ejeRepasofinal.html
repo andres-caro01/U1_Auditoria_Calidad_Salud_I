@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Final: Auditoría y Calidad en Salud</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        :root {
+            --primary: #004F67;
+            --primary-dark: #00779A;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #004F67;
+            background-color: #f0f5f5;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #main-container {
+            width: 95%;
+            max-width: 1000px;
+            height: 850px; 
+            background: white;
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem 3rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) #f1f1f1;
+        }
+
+        .text-custom { color: var(--primary); }
+        .bg-custom { background-color: var(--primary); }
+
+        .btn-action {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 3.5rem;
+            border-radius: 99px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+        .btn-action:hover:not(:disabled) {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .btn-action:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .option-card {
+            transition: all 0.2s ease;
+            border: 2px solid #f1f5f9;
+        }
+        
+        .option-card.selected {
+            border-color: var(--primary);
+            background-color: #f0fdfa;
+        }
+
+        .option-card.locked {
+            pointer-events: none;
+        }
+
+        .circle-bar { 
+            fill: none; 
+            stroke: var(--primary); 
+            stroke-width: 10; 
+            stroke-linecap: round; 
+            transition: stroke-dashoffset 1.5s ease-out;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div id="main-container">
+        
+        <div id="screen-start" class="scroll-content flex flex-col items-center justify-center text-center animate__animated animate__fadeIn">
+            <h1 class="text-5xl font-bold text-custom mb-6 leading-tight">Ejercicio de Repaso 3</h1>
+            <p class="mb-4 text-slate-600 font-semibold text-xl">Auditoría y Calidad en Salud</p>
+            <p class="mb-8 max-w-2xl text-slate-500">
+                ¡Bienvenid@ al ejercicio de repaso!
+            </p>
+            <button onclick="startQuiz()" class="btn-action text-xl shadow-lg">INICIAR</button>
+        </div>
+
+        <div id="screen-quiz" class="hidden flex flex-col h-full">
+            <div class="px-14 pt-10 flex justify-between items-center bg-white z-10">
+                <span id="q-number" class="font-bold text-custom text-sm tracking-widest uppercase"></span>
+                <div class="w-48 h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div id="progress-fill" class="h-full bg-custom transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="scroll-content">
+                <p id="q-instruction" class="text-custom font-bold italic mb-2 text-base"></p>
+                <h2 id="q-text" class="text-xl font-bold mb-6 leading-snug"></h2>
+
+                <div id="options-container" class="space-y-3"></div>
+
+                <div id="feedback-box" class="hidden mt-6 p-6 rounded-3xl border-2 animate__animated animate__fadeInUp">
+                    <p id="feedback-title" class="font-bold text-xl mb-2"></p>
+                    <div id="feedback-body" class="text-base leading-relaxed text-slate-700"></div>
+                    <button onclick="nextStep()" class="mt-4 bg-slate-800 text-white px-10 py-2 rounded-xl hover:bg-black transition-all font-bold">Continuar</button>
+                </div>
+
+                <button id="btn-validate" onclick="validateAnswer()" class="btn-action w-full mt-8 shadow-xl text-lg">Validar Respuesta</button>
+            </div>
+        </div>
+
+        <div id="screen-results" class="hidden scroll-content flex flex-col items-center justify-center text-center">
+            <h2 class="text-4xl font-bold mb-4">Resultado Final</h2>
+            <div class="relative flex items-center justify-center my-6">
+                <svg class="w-64 h-64 -rotate-90">
+                    <circle cx="128" cy="128" r="110" stroke="#f1f5f9" stroke-width="10" fill="none"></circle>
+                    <circle id="final-circle" cx="128" cy="128" r="110" class="circle-bar" stroke-dasharray="691" stroke-dashoffset="691"></circle>
+                </svg>
+                <div class="absolute text-6xl font-black text-slate-800"><span id="result-percent">0</span>%</div>
+            </div>
+            <p id="result-score" class="text-2xl font-bold mb-4 text-slate-700"></p>
+            <div id="result-msg" class="max-w-2xl mb-8 p-6 bg-slate-50 rounded-3xl italic text-slate-600"></div>
+            <button onclick="location.reload()" class="btn-action">Intentar de nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                instruction: "Seleccione la respuesta correcta",
+                question: "Al realizar una auditoría de salud en la fase de preparación los documentos que tiene en cuenta usted, son:",
+                options: [
+                    {t: "Listas de chequeo, actas, normas y guías de manejo, notificación de presentación.", c: true},
+                    {t: "Protocolos, guías de atención, método inductivo, actas.", c: false},
+                    {t: "Actas, normas, indicadores, veredicto.", c: false},
+                    {t: "Listas de chequeo, protocolos, indicadores y veredicto.", c: false}
+                ],
+                feedback: "En la fase de preparación de una auditoría de salud, se recopilan documentos clave como el plan de auditoría, normativas aplicables (guías, protocolos), la historia clínica, registros de atención e informes previos, garantizando la fundamentación del proceso."
+            },
+            {
+                instruction: "Seleccione la respuesta correcta",
+                question: "En la fase de seguimiento de una auditoría usted debe planear una nueva auditoría con el fin de:",
+                options: [
+                    {t: "Revisar el mejoramiento continuo", c: false},
+                    {t: "Hacer seguimiento al cumplimiento de indicadores", c: false},
+                    {t: "Informe final", c: false},
+                    {t: "Seguimiento al plan de mejoramiento", c: true}
+                ],
+                feedback: "En la fase de seguimiento, planear una nueva auditoría tiene como objetivo fundamental verificar la implementación y eficacia de las acciones correctivas tomadas para subsanar las no conformidades detectadas previamente."
+            },
+            {
+                instruction: "Seleccione la respuesta correcta",
+                question: "La mejora continua es un proceso continuo que implica analizar:",
+                options: [
+                    {t: "El rendimiento, identificar oportunidades y realizar cambios graduales en los procesos, los productos y el personal.", c: true},
+                    {t: "Establecer indicadores, planes de mejoramiento, dar un veredicto, corregir.", c: false},
+                    {t: "Planes de acción, planes de mejoramiento, indicadores, soluciones.", c: false},
+                    {t: "Planes de acción, indicadores, actas de cumplimiento, productos", c: false}
+                ],
+                feedback: "La mejora continua es un proceso cíclico que implica analizar procesos y el desempeño de la organización para identificar ineficiencias y adoptar medidas proactivas para perfeccionar la calidad."
+            },
+            {
+                instruction: "Seleccione la respuesta correcta",
+                question: "Los indicadores de salud se plantean con el fin de hacer seguimiento al cumplimiento de estándares en la prestación de servicios de salud, en los procesos de:",
+                options: [
+                    {t: "Evaluación, mejoramiento continuo, calidad, estándares", c: false},
+                    {t: "Estructura, proceso y resultado", c: true},
+                    {t: "Estructura, evaluación, mejoramiento continuo", c: false},
+                    {t: "Estructura, proceso y mejoramiento continuo", c: false}
+                ],
+                feedback: "Los indicadores se plantean para medir la calidad a través de la estructura, el proceso y el resultado. Permiten transformar datos en información para la toma de decisiones informadas."
+            },
+            {
+                instruction: "Señale el grupo de principios correcto",
+                question: "La mejora continua se realiza a través de cuatro principios que permiten el cambio para mejorar, estos son:",
+                options: [
+                    {t: "Incesante, sistémico, activo y proactivo.", c: true},
+                    {t: "Estructura, proceso, resultado, estándar", c: false},
+                    {t: "Estándar, incesante, activo, indicador, mejora continua", c: false},
+                    {t: "Mejora continua, activo, proactivo, incesante", c: false}
+                ],
+                feedback: "La mejora continua requiere un enfoque sistemático y constante. Los cuatro principios: incesante, sistémico, activo y proactivo permiten el cambio dinámico para la excelencia."
+            },
+            {
+                instruction: "Seleccione el concepto correspondiente",
+                question: "Es una herramienta visual que monitorea un proceso a lo largo del tiempo para determinar si está bajo control estadístico, detectando variaciones anormales:",
+                options: [
+                    {t: "Gráfico de Pareto", c: false},
+                    {t: "Gráfico de Ishikawa", c: false},
+                    {t: "Gráfico de control", c: true},
+                    {t: "Histograma", c: false}
+                ],
+                feedback: "El gráfico de control detecta variaciones por 'causas especiales' que indican problemas de calidad y requieren acción correctiva, a diferencia de la variación normal del proceso."
+            },
+            {
+                instruction: "Seleccione la respuesta correcta",
+                question: "La etapa de la auditoría en la que se realiza un análisis de lo encontrado en particular del no cumplimiento de lo esperado se llama:",
+                options: [
+                    {t: "Etapa de preparación", c: false},
+                    {t: "Etapa de ejecución", c: false},
+                    {t: "Etapa de análisis y discusión de resultados", c: true},
+                    {t: "Etapa de cierre.", c: false}
+                ],
+                feedback: "Esta etapa consiste en evaluar la evidencia frente a los criterios, identificar hallazgos y debatirlos con la gerencia para asegurar la validez antes del informe final."
+            },
+            {
+                instruction: "Seleccione la respuesta correcta",
+                question: "En una auditoría de salud en la fase de inicio, tres aspectos fundamentales que se tienen en cuenta son:",
+                options: [
+                    {t: "Se da a conocer el método a utilizar, los instrumentos, los protocolos.", c: false},
+                    {t: "Se presenta el equipo auditor, los objetivos de la auditoría y la fecha y hora de inicio.", c: true},
+                    {t: "Se presenta el equipo auditor, el método a utilizar, los instrumentos.", c: false},
+                    {t: "Se realiza el acta de inicio, se presenta el equipo auditor y los papeles de trabajo.", c: false}
+                ],
+                feedback: "Lo más importante al iniciar es presentar al equipo auditor, dar a conocer claramente los objetivos (qué y para qué se audita) y definir el cronograma de inicio."
+            },
+            {
+                instruction: "Seleccione la respuesta correcta",
+                question: "La auditoría en salud se basa en:",
+                options: [
+                    {t: "Normas y protocolos", c: false},
+                    {t: "Actas y papeles de trabajo", c: false},
+                    {t: "Evidencias y soportes", c: true},
+                    {t: "Instrumentos y normas.", c: false}
+                ],
+                feedback: "Se basa en evidencias como la historia clínica y soportes técnicos. Compara el acto médico con guías de práctica clínica y protocolos para asegurar la mejora continua."
+            },
+            {
+                instruction: "Seleccione la respuesta correcta",
+                question: "El Sistema de Garantía de Calidad en Salud está establecido en Colombia mediante el Decreto:",
+                options: [
+                    {t: "2193 de 2002", c: false},
+                    {t: "1045 de 2006", c: false},
+                    {t: "1330 de 2019", c: false},
+                    {t: "1011 de 2006", c: true}
+                ],
+                feedback: "El SOGCS está definido por el Decreto 1011 de 2006, posteriormente compilado en el Decreto 780 de 2016 (Decreto Único Reglamentario del Sector Salud)."
+            }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+
+        function startQuiz() {
+            document.getElementById('screen-start').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = quizData[currentIdx];
+            document.getElementById('q-number').innerText = `PREGUNTA ${currentIdx + 1}/${quizData.length}`;
+            document.getElementById('progress-fill').style.width = `${((currentIdx + 1)/quizData.length)*100}%`;
+            document.getElementById('q-instruction').innerText = q.instruction;
+            document.getElementById('q-text').innerText = q.question;
+            document.getElementById('feedback-box').classList.add('hidden');
+            document.getElementById('btn-validate').classList.remove('hidden');
+            
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            q.options.forEach((opt, i) => {
+                const d = document.createElement('div');
+                d.className = "option-card flex items-center p-4 rounded-2xl cursor-pointer hover:bg-slate-50";
+                d.innerHTML = `
+                    <input type="radio" name="ans" id="o${i}" value="${i}" class="w-5 h-5 accent-[#004F67]">
+                    <label for="o${i}" class="ml-4 w-full cursor-pointer font-medium text-lg text-slate-700">${opt.t}</label>
+                `;
+                d.onclick = () => {
+                    if (d.classList.contains('locked')) return;
+                    document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
+                    d.classList.add('selected');
+                    d.querySelector('input').checked = true;
+                };
+                container.appendChild(d);
+            });
+        }
+
+        function validateAnswer() {
+            const q = quizData[currentIdx];
+            const sel = document.querySelector('input[name="ans"]:checked');
+            
+            if(!sel) return;
+
+            document.querySelectorAll('.option-card').forEach(el => el.classList.add('locked'));
+            
+            const isCorrect = q.options[sel.value].c;
+            if(isCorrect) score++;
+            
+            const fBox = document.getElementById('feedback-box');
+            fBox.classList.remove('hidden', 'bg-green-50', 'border-green-200', 'bg-red-50', 'border-red-200');
+            document.getElementById('btn-validate').classList.add('hidden');
+
+            const fTitle = document.getElementById('feedback-title');
+            if(isCorrect) {
+                fTitle.innerText = "¡Correcto!";
+                fTitle.className = "font-bold text-xl text-green-700 mb-1";
+                fBox.classList.add('bg-green-50', 'border-green-200');
+            } else {
+                fTitle.innerText = "Incorrecto";
+                fTitle.className = "font-bold text-xl text-red-700 mb-1";
+                fBox.classList.add('bg-red-50', 'border-red-200');
+            }
+            
+            document.getElementById('feedback-body').innerHTML = q.feedback;
+        }
+
+        function nextStep() {
+            currentIdx++;
+            if(currentIdx < quizData.length) {
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-results').classList.remove('hidden');
+            
+            const percent = Math.round((score / quizData.length) * 100);
+            const circle = document.getElementById('final-circle');
+            const circumference = 691; 
+            
+            setTimeout(() => {
+                const offset = circumference - (percent / 100) * circumference;
+                circle.style.strokeDashoffset = offset;
+                
+                let count = 0;
+                const timer = setInterval(() => {
+                    if(count >= percent) {
+                        document.getElementById('result-percent').innerText = percent;
+                        clearInterval(timer);
+                    } else {
+                        count++;
+                        document.getElementById('result-percent').innerText = count;
+                    }
+                }, 15);
+            }, 300);
+
+            document.getElementById('result-score').innerText = `Puntaje: ${score} de ${quizData.length}`;
+            const msg = document.getElementById('result-msg');
+            
+            if(percent === 100) msg.innerHTML = "¡Excelente! Has demostrado un dominio total de los procesos de auditoría y mejora continua en salud.";
+            else if(percent >= 70) msg.innerHTML = "¡Muy bien! Tienes conocimientos sólidos sobre las fases de auditoría y la normativa colombiana.";
+            else msg.innerHTML = "Te recomendamos repasar las etapas de la auditoría (especialmente preparación e inicio) y los principios de la mejora continua.";
+        }
+    </script>
+</body>
+</html>
