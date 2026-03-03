@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Créditos Integrados</title>
+
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fafafa;
+      color: #000;
+      margin: 0;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* ===== ONDA SUPERIOR ===== */
+    .wave-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wave {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 400%;
+      height: 100%;
+      background-repeat: repeat-x;
+      background-position: 0 top;
+      transform-origin: top;
+    }
+
+    @keyframes moveWave {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ===== BLOQUES ===== */
+    .block {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto 30px auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== CRÉDITOS ===== */
+    .container-credits {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 60px;
+      font-size: 17px;
+      line-height: 1.9;
+      visibility: hidden;
+    }
+
+    .left { text-align: right; }
+    .right { text-align: left; }
+
+    h1 {
+      font-weight: 600;
+      font-size: 30px;
+      margin: 0 0 15px 0;
+      color: #1a1a1a;
+    }
+
+    p { margin: 0 0 8px 0; }
+
+    .version {
+      font-size: 14px;
+      color: #d1d5d8;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+
+    .divider {
+      width: 1px;
+      background-color: #e0e0e0;
+      height: 200px;
+      align-self: center;
+    }
+
+    /* ===== LOGOS ===== */
+    .logos-block {
+      text-align: center;
+    }
+
+    .logos-block img {
+      max-width: 65%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .logos-text {
+      font-size: 15px;
+      color: #333;
+    }
+
+    /* ===== CITA ===== */
+    .container-quote {
+      padding: 20px;
+      line-height: 1.8;
+      text-align: left;
+      border-left: 3px solid #d1d5d8;
+    }
+
+    h2 {
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #888;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    #quote {
+      font-size: 15px;
+      font-weight: 400;
+      color: #888;
+      display: inline;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      background-color: #ffcc00;
+      margin-left: 3px;
+      height: 1.2em;
+      vertical-align: middle;
+    }
+
+    .version-tag {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #d1d5d8;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Onda -->
+  <div class="wave-container">
+    <div class="wave" id="waveElement"></div>
+  </div>
+
+  <!-- ===== BLOQUE 1: CRÉDITOS ===== -->
+  <div class="block">
+    <div class="container-credits" id="credit-container">
+      <div class="left">
+        <h1>Compilador</h1>
+        <p>Libia Esperanza Sierra Forero</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="right">
+        <h1>Equipo de Producción</h1>
+        <p>Universidad Pedagógica y Tecnológica de<br>Colombia, UPTC</p>
+        <p>Facultad de Estudios a Distancia</p>
+        <p>Departamento de Innovación Académica</p>
+        <p class="version">Versión 1.0 - Febrero 2026</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BLOQUE 2: LOGOS ===== -->
+  <div class="block">
+    <div class="logos-block">
+      <img src="logos.png" alt="Logos institucionales">
+      <div class="logos-text">
+        Esta transformación digital es de uso académico y exclusivo de la Universidad Pedagógica y Tecnológica de Colombia.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BLOQUE 3: CITA ===== -->
+  <div class="block">
+    <div class="container-quote">
+      <h2 id="header"></h2>
+      <div id="quote"></div><span class="cursor"></span>
+      <div class="version-tag" id="tag"></div>
+    </div>
+  </div>
+
+  <script>
+    // ===== CONFIG ONDA =====
+    const config = {
+      speed: 25,
+      waveCount: 8,
+      color: '#fafafa',
+      opacity: 1
+    };
+
+    function initWave() {
+      const wave = document.getElementById('waveElement');
+      const svgPath = `M0 0 V50 Q250 100 500 50 T1000 50 V0 Z`;
+      const svgContent = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+          <path d="${svgPath}" fill="${config.color}" fill-opacity="${config.opacity}"/>
+        </svg>
+      `;
+      const encodedSvg = btoa(svgContent);
+      wave.style.backgroundImage = `url('data:image/svg+xml;base64,${encodedSvg}')`;
+      const backgroundWidth = 100 / (config.waveCount);
+      wave.style.backgroundSize = `${backgroundWidth}% 100%`;
+      wave.style.animation = `moveWave ${config.speed}s linear infinite`;
+    }
+
+    window.addEventListener("load", () => {
+      // activar onda
+      initWave();
+
+      // ===== ANIMACIÓN CRÉDITOS =====
+      gsap.set("#credit-container", { visibility: "visible" });
+
+      const tlCredits = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tlCredits.from(".left", { duration: 1.2, x: -50, opacity: 0 })
+        .from(".divider", { duration: 1, scaleY: 0, opacity: 0 }, "-=0.8")
+        .from(".right h1, .right p", {
+          duration: 1,
+          y: 30,
+          opacity: 0,
+          stagger: 0.2
+        }, "-=0.5");
+
+      // ===== ANIMACIÓN CITA =====
+      gsap.registerPlugin(TextPlugin);
+
+      const titleText = "Cómo citar este documento:";
+      const quoteText = "Sierra Forero, L. E. (2026). Unidad 2. Componentes de la Evaluación de la Calidad en Salud: Herramientas de Auditoría. En Auditoria de la calidad en salud I. Universidad Pedagógica y Tecnológica de Colombia.";
+
+      const tl = gsap.timeline();
+
+      tl.to("#header", { duration: 1, text: titleText, ease: "none" })
+        .to("#quote", { duration: 4, text: quoteText, ease: "none" }, "+=0.5");
+
+      gsap.to(".cursor", {
+        opacity: 0,
+        repeat: -1,
+        duration: 0.5,
+        ease: "steps(1)"
+      });
+
+      tl.to(".cursor", { opacity: 0, duration: 0.5 })
+        .to("#tag", { opacity: 1, y: -10, duration: 1 }, "-=0.5");
+    });
+  </script>
+
+</body>
+</html>
