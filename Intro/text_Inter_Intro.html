@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contenido Unidad Dos</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000;
+            --accent-color: #00779A;
+            --container-bg: #fdfdfd;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #ececec;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slider-wrapper {
+            width: 90%;
+            max-width: 850px;
+            background: var(--container-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+        }
+
+        .content-area {
+            padding: 50px;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        /* Animaciones */
+        .animate-in {
+            animation: fadeInBlur 0.7s ease-out forwards;
+        }
+
+        @keyframes fadeInBlur {
+            from { opacity: 0; transform: translateY(10px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        h2 {
+            color: var(--text-color);
+            margin-top: 0;
+            font-size: 1.8rem;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: var(--text-color);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: justify;
+            margin: 0;
+        }
+
+        ul {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            position: relative;
+            padding-left: 30px;
+            color: var(--text-color);
+            opacity: 0;
+            animation: fadeInBlur 0.5s ease-out forwards;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 5px;
+            top: -2px;
+        }
+
+        /* Retrasos para viñetas */
+        .active li:nth-child(1) { animation-delay: 0.2s; }
+        .active li:nth-child(2) { animation-delay: 0.4s; }
+        .active li:nth-child(3) { animation-delay: 0.6s; }
+        .active li:nth-child(4) { animation-delay: 0.8s; }
+        .active li:nth-child(5) { animation-delay: 1.0s; }
+
+        /* Controles */
+        .nav-bar {
+            background: #f1f1f1;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            background: var(--text-color);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--accent-color);
+        }
+
+        .counter {
+            font-size: 0.85rem;
+            color: #777;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+<div class="slider-wrapper">
+    <div class="content-area"> 
+        <div class="slide active">
+            <div class="animate-in">
+                <h2>Introducción</h2>
+                <p>En la unidad dos se van a presentar temas relacionados con los sistemas de salud y a la vez su relación con la evaluación de la calidad, las diferentes herramientas que se utilizan para realizar dicha evaluación; es importante resaltar que un sistema de salud es un conjunto de procesos, normas, instituciones, personas, unidos entre sí con un fin determinado, que trabajan para mejorar la salud de la población, incluyendo promoción, prevención, diagnóstico, tratamiento y rehabilitación, con el objetivo de garantizar el derecho fundamental a la salud y la atención integral de todas las personas; para esa atención con calidad se hace necesario estar evaluando constantemente la prestación del servicio, con el fin de corregir falencias y factores de riesgo en la prestación del servicio, a través de planes de mejoramiento, para así corregir oportunamente las falencias encontradas.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="animate-in">
+                <p>Esta evaluación se puede realizar a través de diferentes herramientas como son las auditorías, la aplicación de indicadores, las listas de chequeo, los planes de acción, las matrices de evaluación tales como: la matriz DOFA, matriz (EFI), EFE, enfocadas en identificar, analizar y priorizar riesgos (probabilidad vs. impacto), pero también evalúan factores internos (EFI) o externos (EFE) para formular estrategias, asegurando una asignación eficiente de recursos y una toma de decisiones informada, mejorando la gobernanza y el control interno en la organización, estableciendo planes de mejora.</p>
+                <ul style="margin-top: 25px;">
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <p>Se resalta que definir la auditoria para el mejoramiento de la calidad de la atención en salud se debe ver como un componente de mejoramiento continuo, lo cual implica:</p>
+            <ul>
+                <li>Que su accionar se oriente a la obtención de resultados centrados en el cliente.</li>
+                <li>Que aun cuando una proporción importante de las situaciones se evalúen procesos de atención, dicha evaluación estará orientada a buscar la mejora de los resultados con los cuales esta correlacionado el proceso. Si no hay correlación entre los procesos evaluados y el resultado de calidad, no tiene sentido la auditoria.</li>
+                <li>Que sus evaluaciones no se enfoquen hacia las unidades administrativas particulares, sino que entienda el proceso de atención como un continuo clínico-administrativo que atraviesa toda la organización, examinando tanto el desempeño de la repartición clínica o administrativa como la forma en la cual interactúa con las otras unidades para la prestación del servicio con calidad.</li>
+                <li>Que se basa en la evidencia, tanto en la medida en que examina si los resultados que busca o consigue sean relevantes y prioritarios, así como en la que determina que los métodos que utiliza son válidos, confiables y probados, lo cual implica revisión tanto de la literatura científica nacional e internacional relevante y pertinente, así como de otras experiencias similares.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="nav-bar">
+        <button class="btn" onclick="changeSlide(-1)">Anterior</button>
+        <span class="counter" id="slide-num">1 / 3</span>
+        <button class="btn" onclick="changeSlide(1)">Siguiente</button>
+    </div>
+</div>
+
+<script>
+    let index = 0;
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('slide-num');
+
+    function changeSlide(n) {
+        slides[index].classList.remove('active');
+        index = (index + n + slides.length) % slides.length;
+        slides[index].classList.add('active');
+        
+        counter.innerText = `${index + 1} / ${slides.length}`;
+
+        // Reiniciar animaciones de las viñetas
+        const items = slides[index].querySelectorAll('li');
+        items.forEach(li => {
+            li.style.animation = 'none';
+            li.offsetHeight; 
+            li.style.animation = null;
+        });
+    }
+</script>
+
+</body>
+</html>
