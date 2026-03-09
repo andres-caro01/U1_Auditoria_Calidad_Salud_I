@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+    /* VARIABLES DE COLOR */
+    :root {
+        --color-planear: #3498db;
+        --color-hacer: #2ecc71;
+        --color-verificar: #f1c40f;
+        --color-actuar: #e74c3c;
+        --text-dark: #2c3e50;
+        --animation-speed: 0.6s; /* Velocidad de la animación */
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #ffffff;
+        font-family: 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 650px;
+    }
+
+    svg {
+        width: 100%;
+        height: auto;
+    }
+
+    /* ESTILOS DE LA ROSQUILLA */
+    .segment {
+        fill: none;
+        stroke-width: 45;
+        stroke-dasharray: 196.35 589.05;
+    }
+
+    /* ESTILOS DE LÍNEAS Y TEXTO */
+    .connector {
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        opacity: 0; /* Oculto al inicio */
+        animation: fadeIn var(--animation-speed) ease-out forwards;
+    }
+
+    .label-text {
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        opacity: 0; /* Oculto al inicio */
+        animation: fadeIn var(--animation-speed) ease-out forwards;
+    }
+
+    .pamec-title {
+        font-size: 28px;
+        font-weight: 900;
+        fill: var(--text-dark);
+        text-anchor: middle;
+        dominant-baseline: middle;
+    }
+
+    /* DEFINICIÓN DE LA ANIMACIÓN (Fade In y desplazamiento ligero) */
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(10px); /* Empieza un poco abajo */
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0); /* Termina en su posición */
+        }
+    }
+
+    /* TIEMPOS DE ESPERA (DELAYS) SECUENCIALES */
+    
+    /* 1. Planear */
+    .planear-element { animation-delay: 0.5s; }
+    
+    /* 2. Hacer */
+    .hacer-element { animation-delay: 1.1s; }
+    
+    /* 3. Verificar */
+    .verificar-element { animation-delay: 1.7s; }
+    
+    /* 4. Actuar */
+    .actuar-element { animation-delay: 2.3s; }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+        
+        <g transform="translate(300, 250) rotate(-90)">
+            <circle class="segment" r="125" stroke="var(--color-planear)" stroke-dashoffset="0" />
+            <circle class="segment" r="125" stroke="var(--color-hacer)" stroke-dashoffset="-196.35" />
+            <circle class="segment" r="125" stroke="var(--color-verificar)" stroke-dashoffset="-392.7" />
+            <circle class="segment" r="125" stroke="var(--color-actuar)" stroke-dashoffset="-589.05" />
+        </g>
+
+        <text x="300" y="255" class="pamec-title">PAMEC</text>
+
+        <g class="planear-element">
+            <path d="M 388,162 L 450,100 L 530,100" class="connector" stroke="var(--color-planear)" />
+            <text x="455" y="90" class="label-text" fill="var(--color-planear)">Planear</text>
+        </g>
+
+        <g class="hacer-element">
+            <path d="M 388,338 L 450,400 L 530,400" class="connector" stroke="var(--color-hacer)" />
+            <text x="455" y="420" class="label-text" fill="var(--color-hacer)">Hacer</text>
+        </g>
+
+        <g class="verificar-element">
+            <path d="M 212,338 L 150,400 L 70,400" class="connector" stroke="var(--color-verificar)" />
+            <text x="145" y="420" class="label-text" fill="var(--color-verificar)" text-anchor="end">Verificar</text>
+        </g>
+
+        <g class="actuar-element">
+            <path d="M 212,162 L 150,100 L 70,100" class="connector" stroke="var(--color-actuar)" />
+            <text x="145" y="90" class="label-text" fill="var(--color-actuar)" text-anchor="end">Actuar</text>
+        </g>
+
+    </svg>
+</div>
+
+</body>
+</html>
