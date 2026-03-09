@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--primary-blue:#00779A;
+--title-color:#004F67;
+--text-color:#1e293b;
+--transition-speed:0.6s;
+}
+
+body{
+margin:0;
+padding:0;
+font-family:'Poppins',sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+background:#f8fafc;
+}
+
+.slider-wrapper{
+position:relative;
+width:95%;
+max-width:900px;
+min-height:520px;
+display:flex;
+align-items:flex-start;
+justify-content:center;
+overflow:hidden;
+border-radius:24px;
+padding:40px 20px;
+background:white;
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+display:none;
+flex-direction:column;
+justify-content:flex-start;
+align-items:flex-start;
+padding:0 50px;
+box-sizing:border-box;
+}
+
+.slide.active{
+display:flex;
+}
+
+.slide p{
+font-size:clamp(14px,4vw,19px);
+line-height:1.7;
+color:var(--text-color);
+max-width:100%;
+text-align:justify;
+animation:slideInLeft var(--transition-speed) forwards;
+}
+
+strong{
+color:#004F67;
+}
+
+.bullet{
+margin-top:10px;
+padding-left:10px;
+font-family:'Poppins',sans-serif;
+}
+
+.bullet div{
+margin:6px 0;
+font-family:'Poppins',sans-serif;
+opacity:0;
+animation:slideInLeft 0.6s forwards;
+}
+
+/* animación escalonada */
+
+.bullet div:nth-child(1){animation-delay:0.2s;}
+.bullet div:nth-child(2){animation-delay:0.35s;}
+.bullet div:nth-child(3){animation-delay:0.5s;}
+.bullet div:nth-child(4){animation-delay:0.65s;}
+.bullet div:nth-child(5){animation-delay:0.8s;}
+.bullet div:nth-child(6){animation-delay:0.95s;}
+.bullet div:nth-child(7){animation-delay:1.1s;}
+
+@keyframes slideInLeft{
+from{
+transform:translateX(-50px);
+opacity:0;
+}
+to{
+transform:translateX(0);
+opacity:1;
+}
+}
+
+.nav-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,119,154,0.1);
+border:none;
+width:45px;
+height:45px;
+border-radius:50%;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:all 0.3s ease;
+z-index:10;
+color:var(--primary-blue);
+}
+
+.nav-btn:hover{
+background:var(--primary-blue);
+color:white;
+}
+
+.prev{left:10px;}
+.next{right:10px;}
+
+.nav-btn svg{
+width:24px;
+height:24px;
+fill:currentColor;
+}
+
+.slide-indicator{
+position:absolute;
+bottom:15px;
+left:50%;
+transform:translateX(-50%);
+font-size:14px;
+font-weight:600;
+color:var(--primary-blue);
+background:rgba(0,119,154,0.08);
+padding:6px 14px;
+border-radius:20px;
+}
+
+@media (max-width:600px){
+
+.slider-wrapper{
+min-height:650px;
+padding:60px 15px;
+}
+
+.slide{
+padding:0 20px;
+}
+
+.nav-btn{
+bottom:15px;
+top:auto;
+transform:none;
+}
+
+.prev{left:25%;}
+.next{right:25%;}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="slider-wrapper">
+
+<button class="nav-btn prev" onclick="changeSlide(-1)">
+<svg viewBox="0 0 24 24">
+<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+</svg>
+</button>
+
+<button class="nav-btn next" onclick="changeSlide(1)">
+<svg viewBox="0 0 24 24">
+<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+</svg>
+</button>
+
+
+<!-- SLIDE 1 -->
+
+<div class="slide active">
+
+<p>
+<strong>Taiichi Ocho.</strong> Uno de los vicepresidentes de la Toyota Motor, desarrolló el sistema de Gestión de la producción de “just in time” (JIT) o justo a tiempo.
+</p>
+
+<div class="bullet">
+<div>◇ Exceso de producción.</div>
+<div>◇ Tiempo de espera sin actividad.</div>
+<div>◇ Complicaciones en el transporte de material.</div>
+<div>◇ De proceso como las actividades innecesarias.</div>
+<div>◇ De existencias.</div>
+<div>◇ De movimientos innecesarios.</div>
+<div>◇ Por defectos en el producto.</div>
+</div>
+
+<p>
+Esta identificación generó que se preocuparan por mejorar la formación de los trabajadores, la racionalización de los puestos de trabajo y una mejor relación entre clientes y proveedores.
+</p>
+
+</div>
+
+<!-- SLIDE 2 -->
+
+<div class="slide">
+<p>
+<strong>Massaki Imal.</strong> Es el difusor del Kaizen, una estrategia que sintetiza alguna de las teorías sobre la calidad aplicadas a la organización.
+<br><br>
+Kaizen significa mejora, KAI cambio y ZEN bondad. Este principio plantea que todo puede mejorarse mediante pequeños o grandes cambios con participación de todas las personas y aprovechamiento de la tecnología existente.
+</p>
+</div>
+
+<!-- SLIDE 3 -->
+
+<div class="slide">
+<p>
+<strong>Kiyjoshi Zusaki.</strong> Establece la teoría sobre la gestión visual, donde la información necesaria debe encontrarse directamente en el puesto de trabajo.
+<br><br>
+Cada tarea funciona como una empresa con objetivos, planes y metas; cada funcionario se convierte en el gerente de su propia actividad.
+<br><br>
+También definió un octavo tipo de despilfarro: la no utilización de la inteligencia, imaginación y creatividad de las personas.
+</p>
+</div>
+
+<!-- SLIDE 4 -->
+
+<div class="slide">
+<p>
+<strong>Avedis Donabedian.</strong> Propuso un modelo para evaluar la calidad de los servicios de salud basado en tres dimensiones:
+<br><br>
+<strong>Estructura:</strong> recursos físicos, humanos y organizativos.<br><br>
+<strong>Proceso:</strong> interacción entre profesionales y pacientes.<br><br>
+<strong>Resultados:</strong> efectos finales en la salud y satisfacción del paciente.
+</p>
+</div>
+
+<div class="slide-indicator" id="indicator">
+1 / 4
+</div>
+
+</div>
+
+<script>
+
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const indicator = document.getElementById('indicator');
+
+function changeSlide(direction){
+
+slides[currentSlide].classList.remove('active');
+slides[currentSlide].style.display='none';
+
+currentSlide=(currentSlide+direction+slides.length)%slides.length;
+
+slides[currentSlide].style.display='flex';
+
+setTimeout(()=>{
+slides[currentSlide].classList.add('active');
+},10);
+
+indicator.innerText=(currentSlide+1)+" / "+slides.length;
+
+}
+
+</script>
+
+</body>
+</html>
