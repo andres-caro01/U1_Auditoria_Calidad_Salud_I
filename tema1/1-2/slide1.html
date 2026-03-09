@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--primary-blue:#00779A;
+--text-color:#1e293b;
+--transition-speed:0.6s;
+}
+
+body{
+margin:0;
+padding:0;
+font-family:'Poppins',sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+background:#f8fafc;
+}
+
+.slider-wrapper{
+position:relative;
+width:95%;
+max-width:900px;
+min-height:520px;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+border-radius:24px;
+padding:40px 20px;
+background:white;
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:0 50px;
+box-sizing:border-box;
+}
+
+.slide.active{
+display:flex;
+}
+
+.slide p{
+font-size:clamp(14px,4vw,19px);
+line-height:1.7;
+color:var(--text-color);
+max-width:95%;
+text-align:justify;
+animation:slideInLeft var(--transition-speed) forwards;
+}
+
+@keyframes slideInLeft{
+from{
+transform:translateX(-50px);
+opacity:0;
+}
+to{
+transform:translateX(0);
+opacity:1;
+}
+}
+
+.nav-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,119,154,0.1);
+border:none;
+width:45px;
+height:45px;
+border-radius:50%;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:all 0.3s ease;
+z-index:10;
+color:var(--primary-blue);
+}
+
+.nav-btn:hover{
+background:var(--primary-blue);
+color:white;
+}
+
+.prev{left:10px;}
+.next{right:10px;}
+
+.nav-btn svg{
+width:24px;
+height:24px;
+fill:currentColor;
+}
+
+/* indicador de slide */
+
+.slide-indicator{
+position:absolute;
+bottom:15px;
+left:50%;
+transform:translateX(-50%);
+font-size:14px;
+font-weight:600;
+color:var(--primary-blue);
+background:rgba(0,119,154,0.08);
+padding:6px 14px;
+border-radius:20px;
+}
+
+@media (max-width:600px){
+
+.slider-wrapper{
+min-height:650px;
+padding:60px 15px;
+}
+
+.slide{
+padding:0 20px;
+}
+
+.nav-btn{
+bottom:15px;
+top:auto;
+transform:none;
+}
+
+.prev{left:25%;}
+.next{right:25%;}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="slider-wrapper">
+
+<button class="nav-btn prev" onclick="changeSlide(-1)">
+<svg viewBox="0 0 24 24">
+<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+</svg>
+</button>
+
+<button class="nav-btn next" onclick="changeSlide(1)">
+<svg viewBox="0 0 24 24">
+<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+</svg>
+</button>
+
+
+<!-- SLIDE 1 -->
+
+<div class="slide active">
+
+<p>
+Dentro del concepto de calidad existen dos modelos, el modelo industrial y el modelo de Servicios de Salud; Donabedian (2000) señala sus características.
+“Una característica que distingue el modelo industrial es el enfoque en el consumidor como el árbitro final de la calidad. Es el consumidor quién en último término decide si el producto o servicio proporcionado responde a sus necesidades y expectativas.
+<br><br>
+En el modelo de atención a la salud se encuentran semejanzas y diferencias importantes. Una similitud es la obligación de reconocer la satisfacción del usuario mediante la prestación de servicios convenientes, aceptables y agradables. Para ello y de una forma más importante que la postulada en el modelo industrial, se valora las preferencias del paciente informando tanto en lo relativo a los resultados como al proceso, lo que constituye un ingrediente esencial en cualquier definición de calidad de la atención en salud.”
+</p>
+
+</div>
+
+
+<!-- SLIDE 2 -->
+
+<div class="slide">
+
+<p>
+Sin embargo, el modelo de atención a la salud difiere en la necesidad que existe de acomodar, dentro de la definición de la calidad, un conjunto más complejo de responsabilidades hacia los usuarios y la sociedad. Esto añade, a la vez, riqueza y tensiones internas a la definición de la calidad de la atención a la salud (Donabedian, 2000).
+<br><br>
+El modelo industrial ofrece un poderoso correctivo a los excesos de la regulación gubernamental, con su visión coercitiva, punitiva, con su disposición a censurar y la resistencia a ayudar, con su fijación en las fallas, apartada del reconocimiento y celebración de los éxitos. En todo esto el modelo industrial, comprendido adecuadamente, es un aliado que debemos adoptar sin miedo.
+</p>
+
+</div>
+
+
+<!-- indicador -->
+
+<div class="slide-indicator" id="indicator">
+1 / 2
+</div>
+
+</div>
+
+
+<script>
+
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const indicator = document.getElementById('indicator');
+
+function changeSlide(direction){
+
+slides[currentSlide].classList.remove('active');
+slides[currentSlide].style.display='none';
+
+currentSlide=(currentSlide+direction+slides.length)%slides.length;
+
+slides[currentSlide].style.display='flex';
+
+setTimeout(()=>{
+slides[currentSlide].classList.add('active');
+},10);
+
+indicator.innerText=(currentSlide+1)+" / "+slides.length;
+
+}
+
+</script>
+
+</body>
+</html>
