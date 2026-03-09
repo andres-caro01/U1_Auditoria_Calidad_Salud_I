@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #00779A;
+            --title-color: #004F67;
+            --text-color: #1e293b;
+            --bg-light: #f8fafc;
+            --btn-size: 50px;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-light);
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 850px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            /* Aumentamos el padding lateral para que los botones no toquen el texto */
+            padding: 60px 85px; 
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* CONTENEDOR DE TEXTO CON ANCHO PROTEGIDO */
+        .slide-content {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        /* TIPOGRAFÍA MEJORADA */
+        strong {
+            color: var(--title-color);
+            font-size: 24px;
+            display: block;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .slide p, .bullet div {
+            font-size: 19px;
+            line-height: 1.7;
+            color: var(--text-color);
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        /* VIÑETAS */
+        .bullet div {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+        }
+
+        .bullet div::before {
+            content: "•"; /* Cambiado a un punto sólido para mayor claridad */
+            position: absolute;
+            left: 5px;
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        /* BOTONES DE NAVEGACIÓN - REESTRUCTURADOS */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: 2px solid #edf2f7;
+            width: var(--btn-size);
+            height: var(--btn-size);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--primary-blue);
+            z-index: 20;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+            box-shadow: 0 6px 15px rgba(0,119,154,0.3);
+        }
+
+        /* Posicionamiento lateral extremo */
+        .prev { left: 15px; }
+        .next { right: 15px; }
+
+        /* INDICADOR INFERIOR */
+        .slide-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            background: #f0f9ff;
+            padding: 4px 16px;
+            border-radius: 30px;
+            border: 1px solid #e0f2fe;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVO PARA MÓVILES */
+        @media (max-width: 650px) {
+            .slider-wrapper {
+                padding: 70px 30px 60px 30px; /* Más espacio arriba para botones en móvil */
+            }
+            .nav-btn {
+                top: 35px; /* Movemos los botones a la parte superior */
+                transform: none;
+                width: 40px;
+                height: 40px;
+            }
+            .prev { left: 20px; }
+            .next { right: 20px; }
+            strong { font-size: 20px; }
+            .slide p, .bullet div { font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="slider-wrapper">
+    <button class="nav-btn prev" onclick="changeSlide(-1)" title="Anterior">❮</button>
+    <button class="nav-btn next" onclick="changeSlide(1)" title="Siguiente">❯</button>
+
+    <div class="slide-content">
+        <div class="slide active">
+            <strong>¿Cómo funciona el cuestionario?</strong>
+            <div class="bullet">
+                <div>Evalúa expectativas y percepciones mediante una escala (usualmente<br>de 1 a 7).</div>
+                <div>Se divide en secciones para medir expectativas del servicio ideal y percepciones del servicio recibido.</div>
+                <div>Permite calcular una "brecha de calidad" (Expectativas – Percepciones) para cada dimensión, revelando dónde la empresa falla o excede las expectativas.</div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <strong>Utilidad</strong>
+            <div class="bullet">
+                <div>Identifica áreas específicas de mejora en la prestación del servicio.</div>
+                <div>Ayuda a alinear lo que la empresa promete con lo que entrega.</div>
+                <div>Fomenta la satisfacción y lealtad del cliente.</div>
+                <div>Se aplica en diversos sectores (salud, banca, educación) para mejorar la experiencia del usuario.</div>
+                <div> <b>listas de chequeo: </b>(o checklists) son herramientas de control que consisten en formatos (digitales o físicos) que listan tareas, requisitos o elementos a verificar, asegurando la <b>sistematización, el cumplimiento y la reducción de errores</b> en procesos repetitivos o críticos, como antes de una cirugía, inspecciones de seguridad, o control de calidad, permitiendo registrar objetivamente si algo se cumple o no.</div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <strong>¿Para qué sirven?</strong>
+            <div class="bullet">
+                <div><b>Controlar procesos: </b>aseguran que se sigan los pasos correctos.</div>
+                <div><b>Evitar omisiones: </b>minimizan errores humanos, especialmente en tareas complejas o repetitivas, como se vio en la aviación.</div>
+                <div><b>Recopilar datos: </b>recolectan información de forma ordenada para análisis.</div>
+                <div><b>Auditoría: </b>verifican el cumplimiento de normativas o estándares de calidad (ej. lista de chequeo quirúrgica de la OMS).</div>
+                <div><b>Mejora continua: </b>identifican puntos débiles y oportunidades de mejora.</div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <strong>¿Cómo se diseñan?</strong>
+            <div class="bullet">
+                <div><b>Identificar el objetivo: </b>definir qué se quiere verificar (un proceso, un equipo, etc.).</div>
+                <div><b>Listar criterios: </b>detallar los ítems o tareas a comprobar, formulados como preguntas claras.</div>
+                <div><b>Establecer escala: </b>usar casillas de "Sí/No", "Cumple/No Cumple", "Aplica/No Aplica".</div>
+                <div><b>Diseñar formato: </b>debe ser conciso, fácil de usar, con buen diseño y lenguaje sencillo.</div>
+                <div>definir quién realizará la verificación y cuándo.</div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <strong>Ejemplos de uso:</strong>
+            <div class="bullet">
+                <div><b>Salud: </b>lista de chequeo pre quirúrgica (identidad del paciente, sitio quirúrgico).</div>
+                <div><b>Industria: </b>inspección de maquinaria antes del uso (pre-uso).</div>
+                <div><b>Logística: </b>control de inventario o de entrega de pedidos.</div>
+                <div><b>Gestión de proyectos: </b>verificación de entregables en fases de un proyecto (Álvarez H. , Calidad y Auditoría en Salud, 2023).</div>
+            </div>
+            <p>Plantillas esenciales para registrar, monitorear y evaluar el progreso de proyectos, programas o tareas, capturando información clave como avances, recursos, desviaciones y responsables, y facilitan la toma de decisiones y la rendición de cuentas en diversos ámbitos, desde gestión empresarial hasta control de residuos y salud ocupacional, siendo vitales para asegurar que los objetivos se cumplen de manera eficiente.</p>
+        </div>
+    </div>
+
+    <div class="slide-indicator" id="indicator">1 / 5</div>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const indicator = document.getElementById('indicator');
+
+    function changeSlide(direction){
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + direction + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        indicator.innerText = (currentSlide + 1) + " / " + slides.length;
+    }
+</script>
+
+</body>
+</html>
