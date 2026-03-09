@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Componentes AMFE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:'Poppins', sans-serif;
+background:#f4f6f7;
+display:flex;
+justify-content:center;
+padding:40px;
+}
+
+.table-container{
+width:1100px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+thead{
+background:#0e5f73;
+color:white;
+}
+
+thead th{
+padding:18px;
+text-align:left;
+font-size:18px;
+font-weight:600;
+}
+
+tbody td{
+padding:18px;
+line-height:1.5;
+vertical-align:top;
+}
+
+/* Colores alternados */
+
+tbody tr:nth-child(odd){
+background:#D9E8ED;
+}
+
+tbody tr:nth-child(even){
+background:#ffffff;
+}
+
+/* Animación */
+
+tbody tr{
+opacity:0;
+transform:translateX(-90px);
+transition:all .8s ease;
+}
+
+tbody tr.show{
+opacity:1;
+transform:translateX(0);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+<tr>
+<th>Componente</th>
+<th>Descripción</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Modo de falla potencial</td>
+<td>Cómo podría fallar (ej. cable roto, material faltante).</td>
+</tr>
+
+<tr>
+<td>Efecto potencial</td>
+<td>La consecuencia de esa falla (ej. pérdida de función, riesgo para el usuario).</td>
+</tr>
+
+<tr>
+<td>Severidad (S)</td>
+<td>Se evalúa de 1 (baja) a 10 (muy alta), afectando seguridad o cumplimiento legal.</td>
+</tr>
+
+<tr>
+<td>Causa potencial de falla</td>
+<td>Por qué ocurre la falla.</td>
+</tr>
+
+<tr>
+<td>Ocurrencia (O)</td>
+<td>Probabilidad de que la causa ocurra, de 1 (muy baja) a 10 (muy alta).</td>
+</tr>
+
+<tr>
+<td>Controles actuales</td>
+<td>Los métodos ya existentes para detectar o prevenir la falla.</td>
+</tr>
+
+<tr>
+<td>No detección (D)</td>
+<td>Probabilidad de que los controles actuales no detecten la falla, de 1 (casi segura de detectar) a 10 (muy difícil de detectar).</td>
+</tr>
+
+<tr>
+<td>Número de Prioridad de Riesgo (NPR)</td>
+<td>Se calcula multiplicando el riesgo que lo puede ocasionar. Un NPR alto indica mayor prioridad de acción.</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+const filas = document.querySelectorAll("tbody tr");
+
+filas.forEach((fila, index)=>{
+setTimeout(()=>{
+fila.classList.add("show");
+}, index * 350);
+});
+
+</script>
+
+</body>
+</html>

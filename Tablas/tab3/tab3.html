@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AMFE - Tabla de Fallos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:'Poppins',sans-serif;
+background:#f4f6f7;
+display:flex;
+justify-content:center;
+padding:40px;
+}
+
+.container{
+width:1400px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* encabezado */
+
+thead tr:first-child{
+background:#0e5f73;
+color:white;
+font-size:18px;
+}
+
+thead tr:nth-child(2){
+background:#0e5f73;
+color:white;
+}
+
+th{
+padding:16px;
+border:2px solid #0b3f4c;
+text-align:left;
+}
+
+td{
+padding:16px;
+border:2px solid #2c2c2c;
+vertical-align:top;
+line-height:1.4;
+}
+
+/* filas alternadas */
+
+tbody tr:nth-child(odd){
+background:#D9E8ED;
+}
+
+tbody tr:nth-child(even){
+background:white;
+}
+
+/* animación */
+
+tbody tr{
+opacity:0;
+transform:translateX(-80px);
+transition:all .8s ease;
+}
+
+tbody tr.show{
+opacity:1;
+transform:translateX(0);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<table>
+
+<thead>
+
+<tr>
+<th colspan="3">PROCESO / PRODUCTO</th>
+<th colspan="3">FALLOS POTENCIALES</th>
+<th>CONTROLES ACTUALES</th>
+</tr>
+
+<tr>
+<th>N</th>
+<th>Proceso</th>
+<th>Producto / Componente</th>
+<th>Modo de fallo potencial</th>
+<th>Efectos potenciales de falla</th>
+<th>Causas potenciales de la falla</th>
+<th>Sistemas de control actual</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>1</td>
+<td>Recubierto</td>
+<td>Hilo</td>
+<td>Irregularidad del hilo (ventana, mota)</td>
+<td>Prenda con variación de medidas, ventanas, motas, con ausencia de hilo por rotura</td>
+<td>Hilado antiguo, procesado incorrectamente, lote de proveedor fallado</td>
+<td>Control inicial de torsiones por metro y estiraje del hilo en el arranque del proceso.</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Tejido</td>
+<td>brazo</td>
+<td>Falla de aguja (por desgaste o rotura)</td>
+<td>Línea vertical o picda en prenda con tendencia al corrimiento</td>
+<td>Falta de mantenimiento preventivo</td>
+<td>Maestro aleatorio de prendas</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Tejido</td>
+<td>cuerpo</td>
+<td>Error de programa de tejido</td>
+<td>Diseño de líneas de corte fuera de medidas específicas</td>
+<td>Error de elección de programa aprobado</td>
+<td>Información de fichas técnicas</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Tintorería</td>
+<td>Brazo y cuerpo</td>
+<td>Veteado (varios tonos en misma prenda)</td>
+<td>Prendas no tolerable (apariencia)</td>
+<td>Agilización del proceso de teñido (tiempo y temperatura)</td>
+<td>No hay</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Tintorería</td>
+<td>Brazo y cuerpo</td>
+<td>Tonalidad incorrecta</td>
+<td>Variación de tono entre prendas y blonda</td>
+<td>Error de formulación o pesado</td>
+<td>Verificación de muestra durante el teñido</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>Confección</td>
+<td>Ensamble de prenda</td>
+<td>Picado de costura en pegado de cierre</td>
+<td>Prenda rechazada por el cliente</td>
+<td>Personal no capacitado</td>
+<td>Control medio del supervisor</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>Confección</td>
+<td>Ensamble de prenda</td>
+<td>Picado de costura en pegado de broche</td>
+<td>Hueco y corrido de prenda</td>
+<td>Error de pegado en posición incorrecta</td>
+<td>No hay</td>
+</tr>
+
+<tr>
+<td>8</td>
+<td>Confección</td>
+<td>Ensamble de prenda</td>
+<td>Operación de remalle (pegado de cuerpo a brazo) incorrecto</td>
+<td>Reventado de costura en sisa durante el uso</td>
+<td>Puntadas muy sueltas (mayores a 15 ppp)</td>
+<td>No hay</td>
+</tr>
+
+<tr>
+<td>9</td>
+<td>Confección</td>
+<td>Ensamble de prenda</td>
+<td>Presión excesiva del pegado de broche</td>
+<td>Rotura de tela de calzón al momento de realizar sobreesfuerzo para abrir el broche</td>
+<td>Falla de máquina o regulación incorrecta de presión</td>
+<td>No hay</td>
+</tr>
+
+<tr>
+<td>10</td>
+<td>Externo</td>
+<td>Cierre</td>
+<td>Desnivel de dientes</td>
+<td>Asimetría de prendas</td>
+<td>Falla de lote del proveedor</td>
+<td>No hay</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+const filas=document.querySelectorAll("tbody tr");
+
+filas.forEach((fila,index)=>{
+setTimeout(()=>{
+fila.classList.add("show");
+},index*350);
+});
+
+</script>
+
+</body>
+</html>
