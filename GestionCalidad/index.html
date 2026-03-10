@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría de Calidad - Interfaz Mejorada</title>
+    <style>
+        :root {
+            --primary-blue: #007399;
+            --highlight: #e0f2f7;
+            --text-color: #2c3e50;
+            --tooltip-bg: rgba(0, 0, 0, 0.85);
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 100px 20px 100px; /* Padding inferior para la instrucción */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- INSTRUCCIÓN GENERAL (ESQUINA INFERIOR DERECHA) --- */
+        .instruccion-final {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            max-width: 300px;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-size: 0.85rem;
+            text-align: right;
+            z-index: 500;
+            border: none; /* Sin borde de color como pediste */
+        }
+
+        /* --- PANEL DE CONTROL (SUPERIOR DERECHA) --- */
+        .panel-fijo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .btn-inicio {
+            padding: 12px 25px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .menu-vertical {
+            display: none;
+            flex-direction: column;
+            background-color: var(--primary-blue);
+            border-radius: 40px;
+            padding: 20px 12px;
+            gap: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-icon svg {
+            fill: white;
+            width: 30px;
+            height: 30px;
+        }
+
+        /* --- TOOLTIP FLOTANTE (A LA IZQUIERDA DEL MOUSE) --- */
+        #tooltip {
+            position: fixed;
+            background: var(--tooltip-bg);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            pointer-events: none;
+            display: none;
+            z-index: 2000;
+            white-space: nowrap;
+        }
+
+        /* --- CONTENIDO --- */
+        .contenedor { max-width: 800px; width: 100%; }
+
+        .item-calidad {
+            display: flex;
+            gap: 20px;
+            background: white;
+            margin-bottom: 20px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+        }
+
+        .resaltado {
+            background-color: var(--highlight);
+            transform: scale(1.02);
+            border-left: 5px solid var(--primary-blue);
+        }
+
+        .flecha-num {
+            min-width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+            flex-shrink: 0;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="tooltip"></div>
+
+    <div class="instruccion-final">
+        Haga clic en el botón <strong>"Escuchar contenido"</strong> para interactuar, situado en la esquina superior derecha.
+    </div>
+
+    <div class="panel-fijo">
+        <button class="btn-inicio" id="btn-start" onclick="activarModulo()">
+            ▶ Escuchar Contenido
+        </button>
+
+        <div class="menu-vertical" id="menu-voz">
+            <button class="btn-icon" onmousemove="mostrarTooltip(event, 'Reproducir')" onmouseleave="ocultarTooltip()" onclick="controlVoz('play')">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button class="btn-icon" onmousemove="mostrarTooltip(event, 'Pausar')" onmouseleave="ocultarTooltip()" onclick="controlVoz('pause')">
+                <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <button class="btn-icon" onmousemove="mostrarTooltip(event, 'Reiniciar')" onmouseleave="ocultarTooltip()" onclick="controlVoz('reset')">
+                <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="contenedor">
+        <div class="item-calidad" id="item-0">
+            <div class="flecha-num">1</div>
+            <div class="texto"><h2>Planificación de la calidad</h2><p>Constituye el proceso de definición de las políticas de calidad, generación de los objetivos y establecimiento de las estrategias para alcanzarlos.</p></div>
+        </div>
+        <div class="item-calidad" id="item-1">
+            <div class="flecha-num">2</div>
+            <div class="texto"><h2>La organización para la calidad</h2><p>Es el conjunto de la estructura organizativa, los procesos y los recursos establecidos para gestionar la calidad.</p></div>
+        </div>
+        <div class="item-calidad" id="item-2">
+            <div class="flecha-num">3</div>
+            <div class="texto"><h2>El control de calidad</h2><p>Abarca las técnicas y actividades de carácter operativo utilizadas en la verificación del cumplimiento de los requisitos.</p></div>
+        </div>
+        <div class="item-calidad" id="item-3">
+            <div class="flecha-num">4</div>
+            <div class="texto"><h2>La mejora de la calidad</h2><p>Supone la creación organizada de un cambio ventajoso. No es solo eliminar los picos esporádicos de mala calidad.</p></div>
+        </div>
+    </div>
+
+    <script>
+        const synth = window.speechSynthesis;
+        const items = document.querySelectorAll('.item-calidad');
+        const tooltip = document.getElementById('tooltip');
+        let index = 0;
+        let isPaused = false;
+
+        // Tooltip ajustado a la izquierda del mouse
+        function mostrarTooltip(e, texto) {
+            tooltip.innerText = texto;
+            tooltip.style.display = 'block';
+            // Restamos el ancho del tooltip para que aparezca a la izquierda del puntero
+            tooltip.style.left = (e.clientX - (tooltip.offsetWidth + 10)) + 'px';
+            tooltip.style.top = (e.clientY) + 'px';
+        }
+
+        function ocultarTooltip() {
+            tooltip.style.display = 'none';
+        }
+
+        function activarModulo() {
+            document.getElementById('btn-start').style.display = 'none';
+            document.getElementById('menu-voz').style.display = 'flex';
+            leer(0);
+        }
+
+        function leer(idx) {
+            synth.cancel();
+            index = idx;
+            if (index < items.length) {
+                items.forEach(i => i.classList.remove('resaltado'));
+                items[index].classList.add('resaltado');
+                items[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                const msg = new SpeechSynthesisUtterance(items[index].innerText);
+                msg.lang = 'es-ES';
+                msg.onend = () => { if(!isPaused) leer(++index); };
+                synth.speak(msg);
+            }
+        }
+
+        function controlVoz(cmd) {
+            if(cmd === 'pause') { isPaused = true; synth.pause(); }
+            else if(cmd === 'play') { 
+                if(synth.paused) { isPaused = false; synth.resume(); } 
+                else { isPaused = false; leer(index); }
+            }
+            else if(cmd === 'reset') { isPaused = false; leer(0); }
+        }
+    </script>
+</body>
+</html>
