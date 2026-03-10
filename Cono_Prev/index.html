@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +25,21 @@
             overflow-x: hidden;
         }
 
+        .instruccion {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 13px;
+            color: #cbd5e1;
+            font-family: 'Poppins', sans-serif;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 6px 12px;
+            border-radius: 8px;
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            /* encima de tarjetas */
+        }
+
         .grid-container {
             display: grid;
             gap: 20px;
@@ -31,15 +47,20 @@
             width: 100%;
             max-width: 1200px;
             box-sizing: border-box;
-            grid-template-columns: repeat(4, 1fr); 
+            grid-template-columns: repeat(4, 1fr);
         }
 
         @media (max-width: 1024px) {
-            .grid-container { grid-template-columns: repeat(2, 1fr); }
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 600px) {
-            .grid-container { grid-template-columns: 1fr; padding: 20px; }
+            .grid-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
         }
 
         .card {
@@ -78,7 +99,7 @@
             bottom: 0;
             width: 100%;
             padding: 20px 10px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.95) 70%);
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.95) 70%);
             text-align: center;
             box-sizing: border-box;
         }
@@ -104,7 +125,9 @@
             padding: 20px;
         }
 
-        .modal-overlay.active { display: flex; }
+        .modal-overlay.active {
+            display: flex;
+        }
 
         .modal-content {
             background: rgba(255, 255, 255, 0.05);
@@ -117,12 +140,19 @@
         }
 
         @keyframes pop {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .list-item {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             margin: 8px 0;
             padding: 12px;
             border-radius: 8px;
@@ -143,33 +173,56 @@
         }
     </style>
 </head>
+
 <body>
 
+    <p class="instruccion">
+        Haga clic sobre las tarjetas para ampliar la información.
+    </p>
+
     <div class="grid-container">
-        <div class="card" onclick="playClick(); openModal('Conocimientos previos', 'El estudiante para el desarrollo del presente módulo debe tener conocimientos en:', ['Sistema General Integral de Seguridad Social en Salud.', 'Sistema de Garantía de Calidad en Salud.', 'Salud pública.', 'Epidemiología.', 'Legislación en salud.'])">
-            <img src="https://images.unsplash.com/photo-1587876931567-564ce588bfbd?q=80&w=1170&auto=format&fit=crop" alt="Conocimientos">
-            <div class="card-title-box"><h3 class="card-title">Conocimientos previos</h3></div>
+        <div class="card"
+            onclick="playClick(); openModal('Conocimientos previos', 'El estudiante para el desarrollo del presente módulo debe tener conocimientos en:', ['Sistema General Integral de Seguridad Social en Salud.', 'Sistema de Garantía de Calidad en Salud.', 'Salud pública.', 'Epidemiología.', 'Legislación en salud.'])">
+            <img src="https://images.unsplash.com/photo-1587876931567-564ce588bfbd?q=80&w=1170&auto=format&fit=crop"
+                alt="Conocimientos">
+            <div class="card-title-box">
+                <h3 class="card-title">Conocimientos previos</h3>
+            </div>
         </div>
 
-        <div class="card" onclick="playClick(); openModal('Competencias', 'HabilLas competencias clave en auditoría de calidad en salud incluyen habilidades técnicas para evaluar normativas y sistemas, habilidades blandas como la comunicación y el pensamiento crítico, y la capacidad de identificar áreas de mejora para optimizar servicios y garantizar la seguridad del paciente.', [])">
-            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=500" alt="Competencias">
-            <div class="card-title-box"><h3 class="card-title">Competencias</h3></div>
+        <div class="card"
+            onclick="playClick(); openModal('Competencias', 'HabilLas competencias clave en auditoría de calidad en salud incluyen habilidades técnicas para evaluar normativas y sistemas, habilidades blandas como la comunicación y el pensamiento crítico, y la capacidad de identificar áreas de mejora para optimizar servicios y garantizar la seguridad del paciente.', [])">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=500"
+                alt="Competencias">
+            <div class="card-title-box">
+                <h3 class="card-title">Competencias</h3>
+            </div>
         </div>
 
-        <div class="card" onclick="playClick(); openModal('Objetivos', 'Los objetivos principales son verificar el cumplimiento de normativas, evaluar la calidad del servicio, optimizar recursos y detectar irregularidades.', [])">
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=500" alt="Objetivos">
-            <div class="card-title-box"><h3 class="card-title">Objetivos</h3></div>
+        <div class="card"
+            onclick="playClick(); openModal('Objetivos', 'Los objetivos principales son verificar el cumplimiento de normativas, evaluar la calidad del servicio, optimizar recursos y detectar irregularidades.', [])">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=500"
+                alt="Objetivos">
+            <div class="card-title-box">
+                <h3 class="card-title">Objetivos</h3>
+            </div>
         </div>
 
-        <div class="card" onclick="playClick(); openModal('Resultados de aprendizaje', 'Mientras que los resultados de aprendizaje implican la capacidad de ejecutar el proceso de auditoría y proponer soluciones efectivas y mejorar la prestación de los servicios en salud.', [])">
-            <img src="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?auto=format&fit=crop&q=80&w=500" alt="Resultados">
-            <div class="card-title-box"><h3 class="card-title">Resultados de aprendizaje</h3></div>
+        <div class="card"
+            onclick="playClick(); openModal('Resultados de aprendizaje', 'Mientras que los resultados de aprendizaje implican la capacidad de ejecutar el proceso de auditoría y proponer soluciones efectivas y mejorar la prestación de los servicios en salud.', [])">
+            <img src="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?auto=format&fit=crop&q=80&w=500"
+                alt="Resultados">
+            <div class="card-title-box">
+                <h3 class="card-title">Resultados de aprendizaje</h3>
+            </div>
         </div>
     </div>
 
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
-            <h2 id="mTitle" style="color: var(--accent); margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 10px;"></h2>
+            <h2 id="mTitle"
+                style="color: var(--accent); margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 10px;">
+            </h2>
             <p id="mDesc" style="color: #cbd5e1; line-height: 1.5;"></p>
             <ul id="mList" style="padding: 0;"></ul>
             <button class="close-btn" onclick="closeModal()">Continuar</button>
@@ -192,7 +245,7 @@
             document.getElementById('mDesc').innerText = d;
             const list = document.getElementById('mList');
             list.innerHTML = '';
-            
+
             // Solo mostramos viñetas si es la tarjeta de "Conocimientos previos"
             if (t === 'Conocimientos previos' && items.length > 0) {
                 items.forEach(i => {
@@ -202,7 +255,7 @@
                     list.appendChild(li);
                 });
             }
-            
+
             document.getElementById('modalOverlay').classList.add('active');
         }
 
@@ -211,4 +264,5 @@
         }
     </script>
 </body>
+
 </html>
