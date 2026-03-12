@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspectos Clave - Poppins Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-bg: #0a0f14;
+            --card-bg: rgba(20, 30, 40, 0.6);
+            --accent-color: #34e89e;
+            --text-main: #ffffff;
+            --text-dim: #a0aec0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif; /* Cambio a Poppins */
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* --- FONDO ANIMADO --- */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(15, 52, 67, 0.4) 0%, rgba(52, 232, 158, 0.03) 100%);
+            filter: blur(80px);
+            border-radius: 50%;
+            animation: move 25s infinite alternate ease-in-out;
+        }
+
+        .blob-1 { top: -10%; left: -5%; }
+        .blob-2 { bottom: -10%; right: -5%; animation-delay: -5s; }
+
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(100px, 80px) scale(1.1); }
+        }
+
+        /* --- ESTRUCTURA --- */
+        .container {
+            max-width: 1300px; /* Aumentado para permitir 3 tarjetas holgadas */
+            width: 90%;
+            padding: 60px 0;
+            z-index: 1;
+        }
+
+        .main-title {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #ffffff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* FLEXBOX MEJORADO */
+        .flex-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center; /* Clave para el centrado de la fila inferior */
+        }
+
+        /* --- TARJETAS --- */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            /* El flex-basis permite que ocupen un tercio en pantallas grandes */
+            flex: 1 1 350px; 
+            max-width: 400px;
+            min-height: 280px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .card:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent-color);
+            background: rgba(25, 45, 60, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(52, 232, 158, 0.1);
+        }
+
+        .icon-box {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+        }
+
+        .card:hover .icon-box {
+            transform: scale(1.15) rotate(10deg);
+            filter: drop-shadow(0 0 8px var(--accent-color));
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-dim);
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .source {
+            margin-top: auto; /* Empuja la fuente al final de la tarjeta */
+            padding-top: 20px;
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+        }
+
+        /* --- ANIMACIONES --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Delays Cascada */
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+
+        /* Ajustes Responsivos Finales */
+        @media (max-width: 1180px) {
+            .container { max-width: 900px; }
+            /* Aquí automáticamente pasará a 2 arriba, 2 abajo, 1 centrado */
+        }
+
+        @media (max-width: 768px) {
+            .card { flex: 1 1 100%; max-width: 100%; }
+            .main-title { margin-bottom: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container">
+        <h1 class="main-title">Aspectos clave del enfoque</h1>
+        
+        <div class="flex-layout">
+            
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-award"></i></div>
+                <h2>Evaluación de la calidad</h2>
+                <p>Se revisa si la atención cumple con estándares técnicos-científicos, pertinencia, oportunidad y continuidad, buscando la racionalidad en las decisiones clínicas.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-chart-simple"></i></div>
+                <h2>Eficiencia y efectividad</h2>
+                <p>Se evalúa el uso óptimo de los recursos y se mide el cumplimiento de objetivos al final de los servicios prestados, buscando la mejor relación costo-beneficio.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-shield-halved"></i></div>
+                <h2>Cumplimiento normativo</h2>
+                <p>Se confirma que la institución y sus procesos se ajusten a las regulaciones y normativas vigentes en el sector salud.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-arrows-spin"></i></div>
+                <h2>Mejora continua</h2>
+                <p>La auditoría no es solo una inspección, sino un proceso que genera un informe con conclusiones y un plan de mejoramiento para corregir falencias encontradas y optimizar la atención.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-hospital-user"></i></div>
+                <h2>Ámbitos de aplicación</h2>
+                <p>Puede ser clínica (centrada en la atención al usuario) o interna (evaluando la gestión global del sistema y las políticas institucionales)</p>
+                <span class="source">(Álvarez & Mejía, 2017)</span>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
