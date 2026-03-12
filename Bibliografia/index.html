@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Referencias Bibliográficas - Gestión de Calidad</title>
+    <title>Referencias Bibliográficas - Gestión de Calidad (Azul)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent-color: #054C50; 
-            --accent-bright: #00c9a7; 
+            /* --- NUEVA PALETA DE COLORES AZULES --- */
+            --accent-color: #004080; /* Azul base profundo */
+            --accent-bright: #00ffff; /* Cian/Turquesa brillante para el brillo */
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.15);
             --text-main: #ffffff;
@@ -20,7 +21,7 @@
             padding: 0;
             min-height: 100vh;
             font-family: 'Inter', sans-serif;
-            background-color: #021214; 
+            background-color: #000810; /* Fondo base azul muy oscuro */
             color: var(--text-main);
             display: flex;
             justify-content: center;
@@ -28,7 +29,7 @@
             overflow-x: hidden;
         }
 
-        /* --- FONDO ANIMADO FLUIDO --- */
+        /* --- FONDO ANIMADO FLUIDO (ACTUALIZADO A AZUL) --- */
         .fluid-background {
             position: fixed;
             top: 0;
@@ -37,22 +38,60 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
-            background: #020c0e;
-            filter: blur(80px);
+            background: #000c18; /* Fondo base un poco más claro */
+            filter: blur(80px); /* El secreto para mezclar los colores */
         }
 
         .fluid-layer {
             position: absolute;
             border-radius: 50%;
             opacity: 0.6;
-            mix-blend-mode: screen;
+            mix-blend-mode: screen; /* Ayuda a que los colores brillen al superponerse */
             animation: fluidMove infinite alternate ease-in-out;
         }
 
-        .layer-1 { background: radial-gradient(circle, var(--accent-color) 0%, rgba(5, 76, 80, 0) 70%); width: 90vw; height: 90vw; top: -20%; left: -20%; animation-duration: 25s; }
-        .layer-2 { background: radial-gradient(circle, #008f7a 0%, rgba(0, 143, 122, 0) 70%); width: 80vw; height: 80vw; bottom: -10%; right: -10%; animation-duration: 30s; animation-delay: -5s; }
-        .layer-3 { background: radial-gradient(circle, #00c9a7 0%, rgba(0, 201, 167, 0) 60%); width: 70vw; height: 60vw; top: 30%; right: 20%; animation-duration: 35s; animation-delay: -10s; opacity: 0.4; }
-        .layer-4 { background: radial-gradient(circle, #012a2e 0%, transparent 70%); width: 100vw; height: 100vw; bottom: -30%; left: 10%; animation-duration: 40s; }
+        /* Capa 1: Azul base dominante */
+        .layer-1 {
+            background: radial-gradient(circle, var(--accent-color) 0%, rgba(0, 64, 128, 0) 70%);
+            width: 90vw;
+            height: 90vw;
+            top: -20%;
+            left: -20%;
+            animation-duration: 25s;
+        }
+
+        /* Capa 2: Un azul medio para contraste */
+        .layer-2 {
+            background: radial-gradient(circle, #0066cc) 0%, rgba(0, 102, 204, 0) 70%);
+            width: 80vw;
+            height: 80vw;
+            bottom: -10%;
+            right: -10%;
+            animation-duration: 30s;
+            animation-delay: -5s;
+        }
+
+        /* Capa 3: Cian/Turquesa sutil para las luces altas */
+        .layer-3 {
+            background: radial-gradient(circle, #00ffff) 0%, rgba(0, 255, 255, 0) 60%);
+            width: 70vw;
+            height: 60vw;
+            top: 30%;
+            right: 20%;
+            animation-duration: 35s;
+            animation-delay: -10s;
+            opacity: 0.4;
+        }
+
+        /* Capa 4: Profundidad azul muy oscuro */
+        .layer-4 {
+             background: radial-gradient(circle, #001a33) 0%, transparent 70%);
+             width: 100vw;
+             height: 100vw;
+             bottom: -30%;
+             left: 10%;
+             animation-duration: 40s;
+        }
 
         @keyframes fluidMove {
             0% { transform: translate(0, 0) rotate(0deg) scale(1); }
@@ -93,14 +132,14 @@
         a.card:hover {
             transform: translateY(-10px);
             background: rgba(255, 255, 255, 0.08);
-            border-color: var(--accent-bright);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 201, 167, 0.2);
+            border-color: var(--accent-bright); /* Borde cian brillante al hover */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 255, 0.2);
         }
 
         .author-tag {
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--accent-bright);
+            color: var(--accent-bright); /* Usamos cian brillante para el autor */
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 15px;
@@ -132,7 +171,7 @@
             font-weight: 700;
             opacity: 0.6;
             transition: all 0.3s ease;
-            color: var(--accent-bright);
+            color: var(--accent-bright); /* Flecha cian */
         }
 
         a.card:hover .footer-info::after {
