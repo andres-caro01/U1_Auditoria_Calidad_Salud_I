@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referencias Bibliográficas - Gestión de Calidad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-color: #054C50; 
+            --accent-bright: #00c9a7; 
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-dim: #b0b0b0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background-color: #021214; 
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-x: hidden;
+        }
+
+        /* --- FONDO ANIMADO FLUIDO --- */
+        .fluid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: #020c0e;
+            filter: blur(80px);
+        }
+
+        .fluid-layer {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            mix-blend-mode: screen;
+            animation: fluidMove infinite alternate ease-in-out;
+        }
+
+        .layer-1 { background: radial-gradient(circle, var(--accent-color) 0%, rgba(5, 76, 80, 0) 70%); width: 90vw; height: 90vw; top: -20%; left: -20%; animation-duration: 25s; }
+        .layer-2 { background: radial-gradient(circle, #008f7a 0%, rgba(0, 143, 122, 0) 70%); width: 80vw; height: 80vw; bottom: -10%; right: -10%; animation-duration: 30s; animation-delay: -5s; }
+        .layer-3 { background: radial-gradient(circle, #00c9a7 0%, rgba(0, 201, 167, 0) 60%); width: 70vw; height: 60vw; top: 30%; right: 20%; animation-duration: 35s; animation-delay: -10s; opacity: 0.4; }
+        .layer-4 { background: radial-gradient(circle, #012a2e 0%, transparent 70%); width: 100vw; height: 100vw; bottom: -30%; left: 10%; animation-duration: 40s; }
+
+        @keyframes fluidMove {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            33% { transform: translate(5%, 10%) rotate(90deg) scale(1.1); }
+            66% { transform: translate(-5%, 5%) rotate(180deg) scale(0.9); }
+            100% { transform: translate(10%, -10%) rotate(270deg) scale(1.2); }
+        }
+
+        /* REJILLA DINÁMICA */
+        .reference-grid {
+            display: grid;
+            width: 90vw;
+            max-width: 1400px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 60px 0;
+            z-index: 1;
+        }
+
+        /* ESTILO TARJETA (Link y Div) */
+        .card {
+            text-decoration: none;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-height: 200px;
+        }
+
+        /* Solo las que son enlaces tienen efectos hover de puntero */
+        a.card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-bright);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 201, 167, 0.2);
+        }
+
+        .author-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-bright);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-size: 1.15rem;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            font-weight: 400;
+            color: var(--text-main);
+        }
+
+        .footer-info {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Flecha indicadora solo para enlaces */
+        a.card .footer-info::after {
+            content: 'VER RECURSO →';
+            font-size: 0.7rem;
+            font-weight: 700;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            color: var(--accent-bright);
+        }
+
+        a.card:hover .footer-info::after {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        /* Animación de entrada */
+        .card {
+            animation: fadeIn 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Delays para escalonado */
+        .card:nth-child(n) { animation-delay: calc(0.1s * var(--i)); }
+
+    </style>
+</head>
+<body>
+
+    <div class="fluid-background">
+        <div class="fluid-layer layer-1"></div>
+        <div class="fluid-layer layer-2"></div>
+        <div class="fluid-layer layer-3"></div>
+        <div class="fluid-layer layer-4"></div>
+    </div>
+
+    <main class="reference-grid">
+        <div class="card" style="--i:1">
+            <div class="author-tag">Álvarez, H. (2022)</div>
+            <div class="title">Instrumentos de Auditoría Médica</div>
+            <div class="footer-info">Bogotá: Ecoe Ediciones</div>
+        </div>
+
+        <div class="card" style="--i:2">
+            <div class="author-tag">Álvarez, H. (2023)</div>
+            <div class="title">Calidad y Auditoría en Salud</div>
+            <div class="footer-info">Bogotá: Ecoe Ediciones</div>
+        </div>
+
+        <div class="card" style="--i:3">
+            <div class="author-tag">Álvarez & Mejía (2017)</div>
+            <div class="title">Auditoría Médica</div>
+            <div class="footer-info">Bogotá: Ecoe</div>
+        </div>
+
+        <div class="card" style="--i:4">
+            <div class="author-tag">Berry, T. H. (2022)</div>
+            <div class="title">Cómo gerenciar la transformación hacia la calidad total</div>
+            <div class="footer-info">Bogotá: McGraw-Hill</div>
+        </div>
+
+        <a href="https://es.slideshare.net/slideshow/gestin-de-la-calidad-clase2/59475953" target="_blank" class="card" style="--i:5" rel="noopener noreferrer">
+            <div class="author-tag">Burgos, R. L. (2015)</div>
+            <div class="title">Gestión de la calidad</div>
+            <div class="footer-info">Obtenido de SlideShare</div>
+        </a>
+
+        <div class="card" style="--i:6">
+            <div class="author-tag">Donabedian, A. (2000)</div>
+            <div class="title">Calidad en Salud</div>
+            <div class="footer-info">Michigan: Mc.Graw-Hill</div>
+        </div>
+
+        <div class="card" style="--i:7">
+            <div class="author-tag">Isaza, S. (2020)</div>
+            <div class="title">Garantía de la calidad en salud</div>
+            <div class="footer-info">Bogotá: Ediciones de la U</div>
+        </div>
+
+        <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5248" target="_blank" class="card" style="--i:8" rel="noopener noreferrer">
+            <div class="author-tag">Ley 100 (1993)</div>
+            <div class="title">Sistema de Seguridad Social</div>
+            <div class="footer-info">Gestor Normativo (Colombia)</div>
+        </a>
+
+        <div class="card" style="--i:9">
+            <div class="author-tag">Mejía, G. (2018)</div>
+            <div class="title">Gerencia de Empresas, el Control Interno de Empresas de Salud</div>
+            <div class="footer-info">Bogotá: Ecoe Ediciones</div>
+        </div>
+
+        <div class="card" style="--i:10">
+            <div class="author-tag">OPS (2017)</div>
+            <div class="title">Garantía de Calidad en Salud</div>
+            <div class="footer-info">México: OPS</div>
+        </div>
+
+        <div class="card" style="--i:11">
+            <div class="author-tag">Roemer & Montoya (2000)</div>
+            <div class="title">Origen de la calidad en salud</div>
+            <div class="footer-info">Bogotá: OMS</div>
+        </div>
+    </main>
+
+</body>
+</html>
