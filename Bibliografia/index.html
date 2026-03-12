@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Referencias Bibliográficas - Gestión de Calidad (Azul)</title>
+    <title>Bibliografía - Gestión de Calidad</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* --- NUEVA PALETA DE COLORES AZULES --- */
-            --accent-color: #004080; /* Azul base profundo */
-            --accent-bright: #00ffff; /* Cian/Turquesa brillante para el brillo */
+            --accent-color: #004080; 
+            --accent-bright: #00ffff; 
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.15);
             --text-main: #ffffff;
@@ -21,15 +20,15 @@
             padding: 0;
             min-height: 100vh;
             font-family: 'Inter', sans-serif;
-            background-color: #000810; /* Fondo base azul muy oscuro */
+            background-color: #000810; 
             color: var(--text-main);
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column; /* Cambiado para permitir el título arriba */
+            align-items: center;
             overflow-x: hidden;
         }
 
-        /* --- FONDO ANIMADO FLUIDO (ACTUALIZADO A AZUL) --- */
+        /* --- FONDO ANIMADO AZUL --- */
         .fluid-background {
             position: fixed;
             top: 0;
@@ -38,108 +37,92 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
-            background: #000c18; /* Fondo base un poco más claro */
-            filter: blur(80px); /* El secreto para mezclar los colores */
+            background: #000c18;
+            filter: blur(80px);
         }
 
         .fluid-layer {
             position: absolute;
             border-radius: 50%;
-            opacity: 0.6;
-            mix-blend-mode: screen; /* Ayuda a que los colores brillen al superponerse */
+            opacity: 0.5;
+            mix-blend-mode: screen;
             animation: fluidMove infinite alternate ease-in-out;
         }
 
-        /* Capa 1: Azul base dominante */
-        .layer-1 {
-            background: radial-gradient(circle, var(--accent-color) 0%, rgba(0, 64, 128, 0) 70%);
-            width: 90vw;
-            height: 90vw;
-            top: -20%;
-            left: -20%;
-            animation-duration: 25s;
-        }
-
-        /* Capa 2: Un azul medio para contraste */
-        .layer-2 {
-            background: radial-gradient(circle, #0066cc) 0%, rgba(0, 102, 204, 0) 70%);
-            width: 80vw;
-            height: 80vw;
-            bottom: -10%;
-            right: -10%;
-            animation-duration: 30s;
-            animation-delay: -5s;
-        }
-
-        /* Capa 3: Cian/Turquesa sutil para las luces altas */
-        .layer-3 {
-            background: radial-gradient(circle, #00ffff) 0%, rgba(0, 255, 255, 0) 60%);
-            width: 70vw;
-            height: 60vw;
-            top: 30%;
-            right: 20%;
-            animation-duration: 35s;
-            animation-delay: -10s;
-            opacity: 0.4;
-        }
-
-        /* Capa 4: Profundidad azul muy oscuro */
-        .layer-4 {
-             background: radial-gradient(circle, #001a33) 0%, transparent 70%);
-             width: 100vw;
-             height: 100vw;
-             bottom: -30%;
-             left: 10%;
-             animation-duration: 40s;
-        }
+        .layer-1 { background: radial-gradient(circle, var(--accent-color) 0%, rgba(0, 64, 128, 0) 70%); width: 90vw; height: 90vw; top: -20%; left: -20%; animation-duration: 25s; }
+        .layer-2 { background: radial-gradient(circle, #0066cc 0%, rgba(0, 102, 204, 0) 70%); width: 80vw; height: 80vw; bottom: -10%; right: -10%; animation-duration: 30s; animation-delay: -5s; }
+        .layer-3 { background: radial-gradient(circle, #00ffff 0%, rgba(0, 255, 255, 0) 60%); width: 70vw; height: 60vw; top: 30%; right: 20%; animation-duration: 35s; animation-delay: -10s; opacity: 0.3; }
 
         @keyframes fluidMove {
             0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-            33% { transform: translate(5%, 10%) rotate(90deg) scale(1.1); }
-            66% { transform: translate(-5%, 5%) rotate(180deg) scale(0.9); }
-            100% { transform: translate(10%, -10%) rotate(270deg) scale(1.2); }
+            100% { transform: translate(10%, -10%) rotate(90deg) scale(1.1); }
         }
 
-        /* REJILLA DINÁMICA */
+        /* --- TÍTULO --- */
+        .main-header {
+            text-align: center;
+            padding: 60px 20px 20px 20px;
+            z-index: 1;
+            animation: fadeInDown 1s ease;
+        }
+
+        .main-header h1 {
+            font-weight: 300;
+            font-size: 3rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin: 0;
+            background: linear-gradient(to right, #fff, var(--accent-bright));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-header .line {
+            width: 60px;
+            height: 4px;
+            background: var(--accent-bright);
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        /* REJILLA */
         .reference-grid {
             display: grid;
             width: 90vw;
             max-width: 1400px;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
-            padding: 60px 0;
+            padding: 40px 0 80px 0;
             z-index: 1;
         }
 
-        /* ESTILO TARJETA (Link y Div) */
+        /* TARJETAS */
         .card {
             text-decoration: none;
             background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
             padding: 30px;
             display: flex;
             flex-direction: column;
             transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-            position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            min-height: 200px;
+            min-height: 180px;
         }
 
-        /* Solo las que son enlaces tienen efectos hover de puntero */
         a.card:hover {
             transform: translateY(-10px);
             background: rgba(255, 255, 255, 0.08);
-            border-color: var(--accent-bright); /* Borde cian brillante al hover */
+            border-color: var(--accent-bright);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 255, 0.2);
         }
 
         .author-tag {
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--accent-bright); /* Usamos cian brillante para el autor */
+            color: var(--accent-bright);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 15px;
@@ -149,7 +132,6 @@
             font-size: 1.15rem;
             line-height: 1.4;
             margin-bottom: 20px;
-            font-weight: 400;
             color: var(--text-main);
         }
 
@@ -161,36 +143,22 @@
             margin-top: auto;
             display: flex;
             justify-content: space-between;
-            align-items: center;
         }
 
-        /* Flecha indicadora solo para enlaces */
         a.card .footer-info::after {
             content: 'VER RECURSO →';
             font-size: 0.7rem;
             font-weight: 700;
-            opacity: 0.6;
-            transition: all 0.3s ease;
-            color: var(--accent-bright); /* Flecha cian */
+            color: var(--accent-bright);
         }
 
-        a.card:hover .footer-info::after {
-            opacity: 1;
-            transform: translateX(5px);
-        }
-
-        /* Animación de entrada */
-        .card {
-            animation: fadeIn 0.8s ease forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Delays para escalonado */
+        .card { animation: fadeIn 0.8s ease forwards; opacity: 0; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .card:nth-child(n) { animation-delay: calc(0.1s * var(--i)); }
 
     </style>
@@ -201,8 +169,12 @@
         <div class="fluid-layer layer-1"></div>
         <div class="fluid-layer layer-2"></div>
         <div class="fluid-layer layer-3"></div>
-        <div class="fluid-layer layer-4"></div>
     </div>
+
+    <header class="main-header">
+        <h1>Bibliografía</h1>
+        <div class="line"></div>
+    </header>
 
     <main class="reference-grid">
         <div class="card" style="--i:1">
