@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatos de Seguimiento - 2x2 Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-bg: #0a0f14;
+            --card-bg: rgba(20, 30, 40, 0.6);
+            --accent-color: #34e89e;
+            --text-main: #ffffff;
+            --text-dim: #a0aec0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* --- FONDO ANIMADO --- */
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+        }
+
+        .blob {
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(15, 52, 67, 0.4) 0%, rgba(52, 232, 158, 0.03) 100%);
+            filter: blur(80px);
+            border-radius: 50%;
+            animation: move 25s infinite alternate ease-in-out;
+        }
+
+        .blob-1 { top: -10%; right: -5%; }
+        .blob-2 { bottom: -10%; left: -5%; animation-delay: -5s; }
+
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(-100px, -80px) scale(1.1); }
+        }
+
+        /* --- ESTRUCTURA --- */
+        .container {
+            /* Ajustado para forzar el 2x2: (420px de tarjeta + 30px de gap) * 2 */
+            max-width: 900px; 
+            width: 95%;
+            padding: 60px 0;
+            z-index: 1;
+        }
+
+        .main-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffffff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .flex-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        /* --- TARJETAS --- */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            /* Ancho fijo para forzar 2 por fila en desktop */
+            flex: 0 1 calc(50% - 30px); 
+            min-width: 320px;
+            min-height: 280px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            background: rgba(25, 45, 60, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .icon-box {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        .card p {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: var(--text-dim);
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .link-text {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .link-text:hover { opacity: 0.7; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Delays */
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Pantallas pequeñas: 1 sola columna */
+        @media (max-width: 700px) {
+            .card { flex: 1 1 100%; max-width: 100%; }
+            .container { padding: 40px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container">
+        <h1 class="main-title">Tipos comunes de formatos de seguimiento:</h1>
+        
+        <div class="flex-layout">
+            
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-list-check"></i></div>
+                <h2>Seguimiento de Proyectos</h2>
+                <p>Documentos que detallan el estado de un proyecto, incluyendo tareas, tiempo invertido, presupuesto, recursos y riesgos.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-users-gear"></i></div>
+                <h2>Seguimiento Individual / Talento Humano</h2>
+                <p>Para supervisar el desempeño, cumplimiento de metas o programas específicos (ej., vigilancia epidemiológica) de empleados, como el mostrado en <a href="http://sig.sdis.gov.co" target="_blank" class="link-text">sig.sdis.gov.co</a>.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-file-invoice"></i></div>
+                <h2>Seguimiento de Gestión / Auditoría</h2>
+                <p>Usados en el sector público para evaluar el cumplimiento de políticas y la gestión de entidades, como los del Ministerio del Interior de Colombia.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-truck-ramp-box"></i></div>
+                <h2>Hoja de Seguimiento de Residuos</h2>
+                <p>Documento que acompaña el transporte de residuos peligrosos para controlar su recorrido.</p>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
