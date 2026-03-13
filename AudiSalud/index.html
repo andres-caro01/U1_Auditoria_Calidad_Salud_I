@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aspectos Clave - Poppins Edition</title>
+    <title>Aspectos Clave - Poppins Blue Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --primary-bg: #0a0f14;
-            --card-bg: rgba(20, 30, 40, 0.6);
-            --accent-color: #34e89e;
+            --card-bg: rgba(20, 30, 45, 0.6);
+            --accent-color: #3b82f6; /* Azul brillante (estilo moderno) */
+            --accent-glow: rgba(59, 130, 246, 0.3);
             --text-main: #ffffff;
             --text-dim: #a0aec0;
         }
 
         body {
-            font-family: 'Poppins', sans-serif; /* Cambio a Poppins */
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             background-color: var(--primary-bg);
@@ -43,7 +44,8 @@
             position: absolute;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(15, 52, 67, 0.4) 0%, rgba(52, 232, 158, 0.03) 100%);
+            /* Gradiente ajustado a azul */
+            background: radial-gradient(circle, rgba(0, 114, 255, 0.2) 0%, rgba(59, 130, 246, 0.03) 100%);
             filter: blur(80px);
             border-radius: 50%;
             animation: move 25s infinite alternate ease-in-out;
@@ -59,7 +61,7 @@
 
         /* --- ESTRUCTURA --- */
         .container {
-            max-width: 1300px; /* Aumentado para permitir 3 tarjetas holgadas */
+            max-width: 1300px;
             width: 90%;
             padding: 60px 0;
             z-index: 1;
@@ -76,12 +78,11 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* FLEXBOX MEJORADO */
         .flex-layout {
             display: flex;
             flex-wrap: wrap;
             gap: 30px;
-            justify-content: center; /* Clave para el centrado de la fila inferior */
+            justify-content: center;
         }
 
         /* --- TARJETAS --- */
@@ -91,7 +92,6 @@
             -webkit-backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 40px;
-            /* El flex-basis permite que ocupen un tercio en pantallas grandes */
             flex: 1 1 350px; 
             max-width: 400px;
             min-height: 280px;
@@ -105,8 +105,8 @@
         .card:hover {
             transform: translateY(-12px);
             border-color: var(--accent-color);
-            background: rgba(25, 45, 60, 0.8);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(52, 232, 158, 0.1);
+            background: rgba(25, 45, 75, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px var(--accent-glow);
         }
 
         .icon-box {
@@ -138,7 +138,7 @@
         }
 
         .source {
-            margin-top: auto; /* Empuja la fuente al final de la tarjeta */
+            margin-top: auto;
             padding-top: 20px;
             font-weight: 600;
             color: var(--accent-color);
@@ -151,17 +151,14 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Delays Cascada */
         .card:nth-child(1) { animation-delay: 0.1s; }
         .card:nth-child(2) { animation-delay: 0.2s; }
         .card:nth-child(3) { animation-delay: 0.3s; }
         .card:nth-child(4) { animation-delay: 0.4s; }
         .card:nth-child(5) { animation-delay: 0.5s; }
 
-        /* Ajustes Responsivos Finales */
         @media (max-width: 1180px) {
             .container { max-width: 900px; }
-            /* Aquí automáticamente pasará a 2 arriba, 2 abajo, 1 centrado */
         }
 
         @media (max-width: 768px) {
