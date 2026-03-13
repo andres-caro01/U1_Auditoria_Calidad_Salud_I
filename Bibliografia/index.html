@@ -23,7 +23,7 @@
             background-color: #000810; 
             color: var(--text-main);
             display: flex;
-            flex-direction: column; /* Cambiado para permitir el título arriba */
+            flex-direction: column;
             align-items: center;
             overflow-x: hidden;
         }
@@ -110,9 +110,15 @@
             transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             min-height: 180px;
+            cursor: default; /* Por defecto no parece clickeable */
         }
 
-        a.card:hover {
+        /* Solo las que tienen clase 'link-card' tienen cursor de puntero */
+        .link-card {
+            cursor: pointer;
+        }
+
+        .link-card:hover {
             transform: translateY(-10px);
             background: rgba(255, 255, 255, 0.08);
             border-color: var(--accent-bright);
@@ -145,7 +151,8 @@
             justify-content: space-between;
         }
 
-        a.card .footer-info::after {
+        /* Solo para las tarjetas con link */
+        .link-card .footer-info::after {
             content: 'VER RECURSO →';
             font-size: 0.7rem;
             font-weight: 700;
@@ -201,11 +208,11 @@
             <div class="footer-info">Bogotá: McGraw-Hill</div>
         </div>
 
-        <a href="https://es.slideshare.net/slideshow/gestin-de-la-calidad-clase2/59475953" target="_blank" class="card" style="--i:5" rel="noopener noreferrer">
+        <div class="card link-card" style="--i:5" onclick="openPopup('https://es.slideshare.net/slideshow/gestin-de-la-calidad-clase2/59475953')">
             <div class="author-tag">Burgos, R. L. (2015)</div>
             <div class="title">Gestión de la calidad</div>
             <div class="footer-info">Obtenido de SlideShare</div>
-        </a>
+        </div>
 
         <div class="card" style="--i:6">
             <div class="author-tag">Donabedian, A. (2000)</div>
@@ -219,11 +226,11 @@
             <div class="footer-info">Bogotá: Ediciones de la U</div>
         </div>
 
-        <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5248" target="_blank" class="card" style="--i:8" rel="noopener noreferrer">
+        <div class="card link-card" style="--i:8" onclick="openPopup('https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5248')">
             <div class="author-tag">Ley 100 (1993)</div>
             <div class="title">Sistema de Seguridad Social</div>
             <div class="footer-info">Gestor Normativo (Colombia)</div>
-        </a>
+        </div>
 
         <div class="card" style="--i:9">
             <div class="author-tag">Mejía, G. (2018)</div>
@@ -243,6 +250,19 @@
             <div class="footer-info">Bogotá: OMS</div>
         </div>
     </main>
+
+    <script>
+        function openPopup(url) {
+            // Define el tamaño de la ventana emergente
+            const width = 800;
+            const height = 600;
+            const left = (window.innerWidth / 2) - (width / 2);
+            const top = (window.innerHeight / 2) - (height / 2);
+            
+            // Abre la ventana con parámetros específicos
+            window.open(url, 'popup', `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`);
+        }
+    </script>
 
 </body>
 </html>
