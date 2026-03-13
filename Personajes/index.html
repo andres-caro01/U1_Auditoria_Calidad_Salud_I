@@ -3,45 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Especialistas en Calidad - Dashboard</title>
+    <title>Especialistas en Calidad - Dashboard Material</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-gradient: linear-gradient(137deg, rgb(255, 0, 179) 0%, rgba(0,212,255,1) 100%);
-            --bg-dark: #181818;
-            --shadow-glow: rgba(209, 38, 197, 0.5);
+            /* Paleta Material Design Azul */
+            --primary-blue: #1976D2;
+            --primary-light: #BBDEFB;
+            --primary-dark: #0D47A1;
+            --bg-body: #F5F7FA;
+            --bg-card: #FFFFFF;
+            --text-main: #263238;
+            --text-secondary: #546E7A;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         body {
-            background-color: #0f0f0f;
+            background-color: var(--bg-body);
             font-family: 'Poppins', sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: white;
+            color: var(--text-main);
             padding: 20px;
         }
 
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
             width: 100%;
             max-width: 1100px;
             justify-items: center;
         }
 
-        /* --- TARJETAS --- */
+        /* --- TARJETAS MATERIAL --- */
         .card {
             position: relative;
-            width: 230px;
-            height: 280px;
-            background: var(--primary-gradient);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 30px;
-            filter: drop-shadow(0px 0px 15px var(--shadow-glow));
+            width: 240px;
+            height: 200px; /* Ajustado para un look más balanceado */
+            background: var(--bg-card);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 12px;
+            border-bottom: 4px solid var(--primary-blue);
+            box-shadow: var(--shadow-sm);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -49,51 +57,34 @@
             overflow: hidden;
         }
 
-        .card::after {
-            content: '';
-            background-color: var(--bg-dark);
-            position: absolute;
-            z-index: 1;
-            height: 96%;
-            width: 96%;
-            top: 2%;
-            left: 2%;
-            border-radius: 28px;
-            transition: 0.3s ease;
-        }
-
         .card-content {
-            position: relative;
-            z-index: 2;
             text-align: center;
-            padding: 15px;
+            padding: 20px;
         }
 
         .card-content h3 {
             margin: 0;
-            font-size: 1.4rem;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.25rem;
+            color: var(--primary-dark);
             font-weight: 600;
-            text-transform: uppercase;
-            text-align: center;
+            letter-spacing: 0.5px;
         }
 
         .card:hover {
-            transform: translateY(-12px) scale(1.05);
-            filter: drop-shadow(0px 0px 30px rgba(209, 38, 197, 0.9));
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            background-color: var(--primary-light);
         }
 
-        /* --- MODAL RESPONSIVO --- */
+        /* --- MODAL MATERIAL --- */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(38, 50, 56, 0.7); /* Overlay gris azulado */
+            backdrop-filter: blur(4px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -105,18 +96,15 @@
             position: relative;
             width: 100%;
             max-width: 650px;
-            background: var(--primary-gradient);
-            padding: 2px;
-            border-radius: 30px;
-            filter: drop-shadow(0px 0px 40px var(--shadow-glow));
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 24px 38px rgba(0,0,0,0.2);
             animation: modalIn 0.3s ease-out;
+            overflow: hidden;
         }
 
         .modal-inner {
-            background-color: var(--bg-dark);
-            border-radius: 28px;
-            padding: 45px 35px;
-            position: relative;
+            padding: 40px;
             max-height: 80vh;
             overflow-y: auto;
         }
@@ -125,62 +113,64 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: #222;
+            background: #eee;
             border: none;
-            color: white;
-            width: 35px;
-            height: 35px;
+            color: #555;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.3s;
+            transition: 0.2s;
         }
 
         .close-btn:hover {
-            background: var(--primary-gradient);
-            transform: rotate(90deg);
+            background: var(--primary-blue);
+            color: white;
         }
 
         .modal-inner h2 {
             margin-top: 0;
-            font-size: 2rem;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .modal-inner p {
-            color: #ddd;
-            line-height: 1.7;
-            font-size: 0.95rem;
-            text-align: justify;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 1rem;
+            text-align: left;
         }
 
         .modal-inner ul {
             margin: 15px 0;
             padding-left: 20px;
-            color: #bbb;
+            color: var(--text-secondary);
         }
 
         .modal-inner li {
-            margin-bottom: 6px;
-            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            list-style-type: circle;
         }
 
         @keyframes modalIn {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .active { display: flex; }
 
         @media (max-width: 480px) {
-            .modal-inner { padding: 35px 20px; }
-            .card { width: 180px; height: 240px; }
-            .modal-inner h2 { font-size: 1.5rem; }
+            .modal-inner { padding: 30px 20px; }
+            .card { width: 90%; height: 150px; }
+            .modal-inner h2 { font-size: 1.4rem; }
         }
     </style>
 </head>
